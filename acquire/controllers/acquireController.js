@@ -1,6 +1,7 @@
 'use strict';
 const Consumo = require('../models/consumo'); // importa el modelo una sola vez
 const {fetchKunna} = require('../services/kunnaService');
+const {saveAcquisition} = require("../services/acquireService");
 
 async function getHealth(req, res) {
   try {
@@ -40,10 +41,10 @@ async function postData(req, res) {
     ]); */
 
     const features = [values[0][2], values[1][2], values[2][2], target.getUTCHours(), target.getUTCDay(), target.getUTCDate()];
+    const saved = await saveAcquisition(features, target, columns, values);
 
     res.status(200).json({
-      //id, latency para milisegundos
-      acquire_id,
+      dataID: saved._id,
       features,
       columns,
       values,

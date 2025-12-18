@@ -1,11 +1,20 @@
-FROM node:18
+# Imagen base con Node 22
+FROM node:22-slim
 
-WORKDIR /app
+# Directorio de trabajo dentro del contenedor
+WORKDIR /usr/src/app
 
+# Copiamos primero manifiestos para cachear dependencias
 COPY package*.json ./
-RUN npm install
 
+# Instalamos dependencias de producción
+RUN npm ci --omit=dev
+
+# Copiamos el resto del código (incluye /model)
 COPY . .
 
-EXPOSE 3000
+# El servicio escucha en 3002
+EXPOSE 3002
+
+# Comando de arranque
 CMD ["node", "server.js"]
