@@ -1,0 +1,18 @@
+services:
+  acquire:
+    build: ./acquire
+    container_name: acquire
+    ports:
+      - "3001:3001"
+
+  predict:
+    build: ./predict
+    container_name: predict
+    ports:
+      - "3002:3002"
+
+  orchestrator:
+    build: ./orchestrator
+    container_name: orchestrator
+    ports:
+      - "3000:3000"
