@@ -2,27 +2,24 @@ const { port } = require("../controllers/orchestratorController");
 
 require ("dotenv").config();
 
-const acquireURL = process.env.ACQUIRE_URL
+const acquireURL = process.env.ACQUIRE_URL;
 
-async function fetchAcquire(){
+async function acquire(){
 
     const headers = {
         "Content-Type": "application/json"
     };
 
-    const body = {    }
+    const body = {}
 
-    const response = await fetch(url, {
+    const response = await fetch(acquireURL, {
         method: "POST",
         headers: headers,
         body: JSON.stringify(body)
     });
 
-    if (!response.ok){
-        throw new Error('ACQUIRE_BAD_STATUS:${response.status}');
-    }
 
     return await response.json();
 }
 
-module.exports = { fetchAcquire };
+module.exports = { acquire };

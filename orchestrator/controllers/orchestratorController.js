@@ -1,7 +1,7 @@
 'use strict';
 
-const acquire = require("../services/acquireService");
-const predict = require("../services/predictService")
+const { acquire } = require("../services/acquireService");
+const { predict } = require("../services/predictService")
 require('dotenv').config();
 
 
@@ -19,9 +19,10 @@ async function run(req, res) {
     }
 
     const predictRes = await predict(acquireRes.features, acquireRes.acquire_id);
-    if (!predictRes || predictRes.error) {
+    /*if (!predictRes || predictRes.error) {
       res.status(502).json({ error: "Ha habido un error con Predict"});
-    }
+    }*/
+   console.log(predictRes);
     res.status(200).json({
       "dataID" : acquireRes.dataID,
       "predictionID" : predictRes.predictionID,

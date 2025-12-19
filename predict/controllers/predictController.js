@@ -64,8 +64,9 @@ async function doPredict(req, res) {
     const prediction = await predict(features);
     const latencyMs = Date.now() - start;
     const timestamp = new Date().toISOString();
+    const modelVersion = info.modelVersion || "v1";
 
-    const saved = await savePrediction(features, featureCount, info.modelVersion, start);
+    const saved = await savePrediction({features, featureCount, modelVersion, start});
 
     
     res.status(201).json({

@@ -11,7 +11,7 @@ const prediction = new mongoose.Schema({
         type: Number,
         required: true
     },
-    scalerVersion: {
+    modelVersion: {
         type: String,
         required : true
     }, 

@@ -29,19 +29,9 @@ async function postData(req, res) {
 
     const { columns, values } = await fetchKunna(dateStart, dateEnd);
 
-    /*// Construir features para cada documento
-    const featuresList = kunnaResponse.map(doc => [
-      doc.consumo_t,
-      doc["consumo_t-1"],
-      doc["consumo_t-2"],
-      doc.hora,
-      doc.dia_semana,
-      doc.mes,
-      doc.dia_mes
-    ]); */
-
-    const features = [values[0][2], values[1][2], values[2][2], target.getUTCHours(), target.getUTCDay(), target.getUTCDate()];
-    const saved = await saveAcquisition(features, target, columns, values);
+    //console.log(target);
+    const features = [values[0][2], values[1][2], values[2][2], target.getUTCHours(), target.getUTCDay(), target.getUTCMonth(), target.getUTCDate()];
+    const saved = await saveAcquisition({features, dateEnd, columns, values});
 
     res.status(200).json({
       dataID: saved._id,

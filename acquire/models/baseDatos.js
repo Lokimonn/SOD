@@ -8,11 +8,11 @@ const acquisition = new mongoose.Schema({
         required: true
     },
     target: {
-        type: Date,
-        required: true
+        type: Date//,
+        //required: true
     },
     columns: {
-        type: [Srting],
+        type: [String],
         required: true
     },
     values: {

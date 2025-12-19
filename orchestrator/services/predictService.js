@@ -2,9 +2,9 @@ const { port } = require("../controllers/orchestratorController");
 
 require ("dotenv").config();
 
-const PREDICT_URL = process.env.PREDICT_URL || 'http://localhost:3002/predict';
+const predict_URL = process.env.PREDICT_URL || 'http://localhost:3002/predict';
 
-async function fetchPredict(){
+async function predict(features, dataID){
 
   const headers = {
     "Content-Type": "application/json"
@@ -12,25 +12,22 @@ async function fetchPredict(){
 
   const body = {
     "features": features,
-    "meta" : {
+    "meta": {
       "featureCount": features.length,
-      "dataID" : dataID,
+      "dataID": dataID,
       "source": "orchestrator"
     }
   };
 
-  const response = await fetch(url, {
+  const response = await fetch(predict_URL, {
     method: "POST",
     headers: headers, 
     body: JSON.stringify(body)
   });
 
-  if (!response.ok){
-    throw new Error(`PREDICT_BAD_STATUS:${response.status}`);
-  }
 
   return await response.json();
 
 }
 
-module.exports = { fetchPredict };
+module.exports = { predict };
