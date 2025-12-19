@@ -22,7 +22,7 @@ async function run(req, res) {
     /*if (!predictRes || predictRes.error) {
       res.status(502).json({ error: "Ha habido un error con Predict"});
     }*/
-   console.log(predictRes);
+   //console.log(predictRes);
     res.status(200).json({
       "dataID" : acquireRes.dataID,
       "predictionID" : predictRes.predictionID,
